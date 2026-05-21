@@ -7,6 +7,41 @@
   table {width: 100%; font-size: 20px; border-collapse: collapse;text-align: center;}
   td {padding: 15px 25px; cursor: pointer;}
   td:hover {background-color: #ff8a9d;}
+  .background {
+  width: 100px;
+  height: 50px;
+  padding: 0;
+  margin: 0;
+}
+
+.line {
+  width: 112px;
+  height: 47px;
+  border-bottom: 1px solid rgb(7, 7, 7);
+  transform: translateY(-20px) translateX(5px) rotate(27deg);
+  position: absolute;
+  z-index: -1;
+}
+
+.background>div {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+}
+
+.top {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
 </style>
 </head>
 <body>
@@ -16,9 +51,12 @@
 <table border="1">
   <tr>
     <td>
-    <span class="sup">1</span>
-    <span class="inf">2</span>   
-    </td><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>
+    <th class="background">
+    <div><span class="bottom">Black</span>
+      <span class="top">White</span>
+      <div class="line"></div>
+    </div>
+  </th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>
   </tr>
   <tr>
     <th>0</td><td onclick="location.href='A.html'"><u>256A</u></td><td style="color: #002aff onclick="location.href='B.html'">\(256B\)</td><td onclick="location.href='C.html'">\(96C\)</td><td onclick="location.href='D.html'">\(16D\)</td><td>1</td>
