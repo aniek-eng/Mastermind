@@ -6,7 +6,9 @@
   <style> 
   table {width: 100%; font-size: 20px; border-collapse: collapse;text-align: center;}
   td {padding: 15px 25px; cursor: pointer;}
-  td:hover {background-color: #ff8a9d;}
+  td:hover {background: none;}
+  td[link]:hover {background: #ff8a9d;}
+  
   .background {
   width: 100px;
   height: 50px;
@@ -50,7 +52,6 @@
 
 <table border="1">
   <tr>
-    <td>
     <th class="background">
     <div><span class="bottom">Black</span>
       <span class="top">White</span>
@@ -59,7 +60,7 @@
   </th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>
   </tr>
   <tr>
-    <th>0</td><td onclick="location.href='A.html'"><u>256A</u></td><td style="color: #002aff onclick="location.href='B.html'">\(256B\)</td><td onclick="location.href='C.html'">\(96C\)</td><td onclick="location.href='D.html'">\(16D\)</td><td>1</td>
+    <th>0</td><td link onclick="location.href='A.html'"><u>256A</u></td><td style="color: #002aff onclick="location.href='B.html'">\(256B\)</td><td onclick="location.href='C.html'">\(96C\)</td><td onclick="location.href='D.html'">\(16D\)</td><td>1</td>
   </tr>
   <tr>
     <th>1</td><td>256E</td><td>208F</td><td>36G</td><td>0</td><td></td>
