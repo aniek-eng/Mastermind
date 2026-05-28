@@ -6,7 +6,59 @@
   <style> 
   table {width: 100%; font-size: 20px; border-collapse: collapse;text-align: center;}
   td {padding: 15px 25px; cursor: pointer;}
-  td:hover {background-color: #ff8a9d;}
+  td:hover {background: none;}
+  td[link]:hover {background: #ff8a9d;}
+  .outerborder {
+  border-right: none;
+  border-bottom: none;
+  }
+  
+  .blackborders {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  }
+  
+  .background {
+  width: 100px;
+  height: 50px;
+  padding: 0;
+  margin: 0;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.line {
+  width: 112px;
+  height: 47px;
+  border-bottom: 1px solid rgb(7, 7, 7);
+  transform: translateY(-20px) translateX(5px) rotate(27deg);
+  position: absolute;
+  z-index: -1;
+}
+
+.background>div {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+}
+
+.top {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
 </style>
 </head>
 <body>
@@ -15,9 +67,15 @@
 
 <a href="index.html">Back</a>
 
-<table border="1">
+<table class="outerborder" border="1">
+
   <tr>
-    <td>-</td><td>\(α_{i0}\)</td><td>\(α_{i1}\)</td><td>\(α_{i2}\)</td><td>\(α_{i3}\)</td><td>\(α_{i4}\)</td>
+    <th class="background">
+    <div><span class="bottom">Black</span>
+      <span class="top">White</span>
+      <div class="line"></div>
+    </div>
+  </th><th class="blackborders">0</th><th class="blackborders">1</th><th class="blackborders">2</th><th class="blackborders">3</th><th class="blackborders">4</th>
   </tr>
   <tr>
      <td>\(α_{0i}\)</td><td>4(1515)</td><td>14CA</td><td>16CB</td><td>2</td><td>0</td>
