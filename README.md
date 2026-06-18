@@ -1,3 +1,3 @@
 # Mastermind
 
-Here you can find our renewed figure and our codes. The codes have the name "Codes"
+Here you can find our improved figure and our codes. The codes have the name "codes (1)."
