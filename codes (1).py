@@ -1401,10 +1401,16 @@ def intelligent_mastermind_guide(n:int = 4,
                                  zeros:str = "off",
                                  printing:str = "off"):
     
-    """
-    
-    """
+     """
+    Computes the best guess to narrow down the possibilites for the code until the code is found.
 
+    Inputs:
+    - n: length of code
+    - k: number of colours allowed in code
+    - repeating: whether or not repetition is allowed in the code
+    - zeros: whether or not zeros are allowed in the code
+    - printing: if set to "on", printings a message "Examining element... of..." for each guess examined, to give an indication of the progress
+    """
     turn = 1
     possible_codes = set_creator(n,k, repeating, zeros)
     all_guesses = possible_codes.copy()
@@ -1427,37 +1433,3 @@ def intelligent_mastermind_guide(n:int = 4,
         turn += 1
         print()
 
-set = set_creator(4,8,repeating = "on", zeros = "off")
-
-# counter = 0
-# checking = []
-# for guess in set:
-#     counter += 1
-#     print(counter)
-#     sizes = group_finder(guess, newset, 10, "off", "on")[1]
-#     if sizes not in checking:
-#         checking.append(sizes)
-
-# print(checking)
-
-maxsizes = []
-maxmax = 10
-counter = 0
-for guess in set:
-    counter += 1
-    print(counter)
-    sizes = group_finder(guess, set, 8, "on", "off")[1]
-    maxsize = max(sizes)
-    maxsizes.append([guess])
-
-sizes_examined = []
-information = []
-for size in maxsizes:
-    if size not in sizes_examined:
-        info = []
-        sizes_examined.append(size)
-        info.append(size)
-        info.append(maxsizes.count(size))
-        information.append(info)
-
-print(information)
