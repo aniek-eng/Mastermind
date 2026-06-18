@@ -1,7 +1,6 @@
 import ast
 import itertools
 import random
-import matplotlib.pyplot as plt
 
 #SUPPORTING PROGRAMMES
 
@@ -16,7 +15,7 @@ def feedback_finder(guess: str,
     Finds the feedback for a certain guess.
 
     Inputs:
-    - guess, can be list or string
+    - guess
     - code
     - mode
     - codelength: the length of the code
@@ -29,8 +28,8 @@ def feedback_finder(guess: str,
     - Manual mode: the programme asks the user to provide their guess and prompts the user to input the feedback obtained.
 
     Returns:
-    The feedback, as a tuple: (black, white)
-    If the mode is manual, the programme also returns the guess
+    - The feedback, as a tuple: (black, white)
+    - If the mode is manual, the programme also returns the guess
     """
     if mode == "automatic":
 
@@ -66,7 +65,7 @@ def feedback_finder(guess: str,
         return (black,white)
     
     if mode == "guided":
-        feedback = ast.literal_eval(input(("Your next guess should be", guess, ". What is the feedback for this?"))) 
+        feedback = ast.literal_eval(input(f"Your next guess should be {guess}. What is the feedback for this?")) 
         
         return feedback
     
@@ -78,6 +77,8 @@ def feedback_finder(guess: str,
 def number_converter(number: str,
                     codelength: int = None):
     """
+    Converts strings of numbers into lists.
+
     Inputs:
     - number: str
     - codelength: If it is not inputted, it is set to the len(number)
@@ -106,8 +107,8 @@ def set_constrictor(set: list,
 
     Inputs:
     - set: list
-    - guess: list (for example: [1,2,3,4])
-    - feedback: tuple
+    - guess: string
+    - feedback: tuple, (black,white)
     - n: length of codes
     - k: amount of available colours
     - zeros: whether or not zeros are allowed in the code
@@ -131,7 +132,7 @@ def nextguess(guess: list,
 
     Inputs:
     - guess: a list, for example [1,2,3,4]
-    - info: a list of lists, with information about the current process. The lists with indices 0 and 1 are the list with the guesses done up til now, and the list of all feedbacks received.
+    - info: a list of lists, with information about the current process. The lists with indices 0 and 1 are the list with the guesses done up to now, and the list of all feedbacks received.
     The programme adds the current guess and feedback to these lists.
 
     Returns:
@@ -263,7 +264,7 @@ def best_guess_finder(possible_codes: list,
     - printing: If set to "on", the code will print "Examining element..." with the number of the guess being examined. This gives an indication for how far along the process is.
 
     Returns:
-    - previous_best_guesses[0]: A list with information about the best guess. The 0th element is the guess, the 1th is the sorted list of the number of codes left after each feedback, the 2nd is that same list, but now sorted by feedback. 
+    - guess_info: A list with information about the best guess. The 0th element is the guess, the 1th is the sorted list of the number of codes left after each feedback, the 2nd is that same list, but now sorted by feedback. 
     - best_guess: the guess that has the lowest maximum amount of codes left after making that guess (if there are multiple, the programme chooses the guess that is lowest numerically)
     """
 
@@ -286,13 +287,11 @@ def best_guess_finder(possible_codes: list,
         groups = []
         group_lengths = []
 
-
         for black in range (n+1):
             for white in reversed(range(n - black + 1)):
                 groupkeys[(black,white)] = []
                 groups.append(groupkeys[(black,white)])
-                
-    
+                    
         # Iteration over all possible codes
         for code in possible_codes:
             feedback = feedback_finder(guess, code, "automatic", n, k, zeros)
@@ -346,8 +345,10 @@ def best_guess_finder(possible_codes: list,
                 if not found_best_guess:     
                     best_guess = previous_best_guesses[0][0]
                 break
+    
+    guess_info = previous_best_guesses[0]
 
-    return previous_best_guesses[0], best_guess
+    return guess_info, best_guess
 
 def group_finder(guess: list,
                  possible_codes: list,
@@ -356,13 +357,13 @@ def group_finder(guess: list,
                  zeros:str = "off",
                  printing: str = "off"
                  ):
-    """CHANGE
+    """
     Sorts codes based on what feedback they would give to the given guess.
 
     Inputs:
-    - guess
+    - guess: a list, for example [1,2,3,4]
     - n: length of code
-    - k: amount of colours in code
+    - k: number of colours allowed
     - repeating: whether or not repetition is allowed
     - zeros: whether or not zeros are allowed in the code
     - printing: if set to "on", the programme prints "Examining code..." for each code, giving an indication of the progress made
@@ -413,6 +414,9 @@ def play_mastermind(code:list = [random.randint(1,6),random.randint(1,6), random
 
     Input:
     - code (set to a random code by default)
+
+    Returns
+    - code
     """
     feedback = None
     while feedback != (4,0):
@@ -441,7 +445,6 @@ def knuth(code: str = None,
     - mode: can be either guided (the default mode), or testing
     - printing: whether or not the programme prints the message "The code is..." at the end. Can be turned off for testing.
 
-    Returns:
     Returns:
     - the amount of guesses it took to find the code
     - the code
@@ -1395,26 +1398,32 @@ def knuth(code: str = None,
     else:
         return finalstretch("done", info)
 
-def intelligent_mastermind_guide(n:int = 4,
+def intelligent_mastermind_guide(n: int = 4,
                                  k: int = 6,
                                  repeating:str = "on",
                                  zeros:str = "off",
                                  printing:str = "off"):
     
-     """
-    Computes the best guess to narrow down the possibilites for the code until the code is found.
+    """
+    Helps the user find the codemaker's code by giving the best guess to narrow down all possibilities.
 
     Inputs:
-    - n: length of code
-    - k: number of colours allowed in code
-    - repeating: whether or not repetition is allowed in the code
+    - n: the length of the code
+    - k: the number of colours allowed
+    - repeating: whether or not we allow repetition of colours in the code
     - zeros: whether or not zeros are allowed in the code
-    - printing: if set to "on", printings a message "Examining element... of..." for each guess examined, to give an indication of the progress
+    - printing: if set to "on", will print "Examining element..." for each possible guess, giving an indication of the progress made
+
+    Prints:
+    - the best guess, the outcomes for the different feedbacks to that guess
+    - If the code has been found: prints the amount of turns it took to find the code
     """
-    turn = 1
+
+    turn = 0
     possible_codes = set_creator(n,k, repeating, zeros)
     all_guesses = possible_codes.copy()
     while True:
+        turn += 1
         print(f"Turn {turn}:")
         print("Computing next best guess...")
         best_guesses, best_guess = best_guess_finder(possible_codes, all_guesses, n, k, zeros, printing)
@@ -1430,6 +1439,4 @@ def intelligent_mastermind_guide(n:int = 4,
             print(f"Congrats, you've found the code in {turn} turns!")
             break
         possible_codes = set_constrictor(possible_codes, best_guess, feedback, n, k, zeros)
-        turn += 1
         print()
-
